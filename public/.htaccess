@@ -1,0 +1,75 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Front Controller
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# ── Security Misconfiguration fixes ───────────────────────────────────────
+
+# Block access to hidden files (.env, .git, .htaccess itself from parent)
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block direct access to sensitive file types
+<FilesMatch "\.(env|log|sql|sqlite|bak|config|lock|json|md|sh|bat)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Remove server signature headers (security misconfiguration)
+<IfModule mod_headers.c>
+    Header always unset X-Powered-By
+    Header always unset Server
+
+    # ── DDoS / Request Flood mitigation ───────────────────────────────────
+    # Limit request body to 12MB (slightly above upload max for overhead)
+    # Note: Also set LimitRequestBody in Apache main config for full effect.
+    # LimitRequestBody 12582912
+
+    # ── Clickjacking / Phishing ───────────────────────────────────────────
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # ── DNS Spoofing / HSTS ───────────────────────────────────────────────
+    # Uncomment in production on HTTPS:
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# ── Block common attack scanner paths ─────────────────────────────────────
+# Zero-day exploit scanners and bots probe these paths constantly.
+# 404 them at the server level before PHP even loads.
+<IfModule mod_rewrite.c>
+    RewriteRule ^(wp-admin|wp-login|xmlrpc|phpmyadmin|admin|shell|backdoor|c99|r57) - [R=404,L]
+</IfModule>
+
+# ── Prevent PHP execution in upload directories ───────────────────────────
+# Defence-in-depth: even if a malicious file slips through, Apache won't run it.
+<IfModule mod_php.c>
+    <DirectoryMatch "storage/">
+        php_flag engine off
+    </DirectoryMatch>
+</IfModule>

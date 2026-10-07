@@ -1,0 +1,20 @@
+# robots.txt — FileVault
+#
+# Security note: this file tells legitimate search engine crawlers what NOT
+# to index. It does NOT prevent malicious bots from accessing these paths —
+# that is handled by authentication middleware and rate limiting in the app.
+#
+# Phishing mitigation: disallow dashboard and auth pages so they don't appear
+# in search results and can't be cloned/indexed for phishing campaigns.
+
+User-agent: *
+Disallow: /dashboard
+Disallow: /files/
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /storage/
+Disallow: /vendor/
+
+Allow: /
+Allow: /about
