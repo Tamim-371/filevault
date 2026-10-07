@@ -86,44 +86,31 @@
 
 @section('content')
 <div class="about-header">
-    <h1>About FileVault</h1>
-    <p>A clean, minimal file storage application built to demonstrate Laravel 12 and modern Blade templating.</p>
+    <h1>About</h1>
+    <p>A small Laravel app for keeping your own files.</p>
 </div>
 
 <div class="about-grid">
     <div class="about-block">
         <div class="block-icon">🎯</div>
-        <h3>Purpose</h3>
-        <p>FileVault is a personal file management system. Authenticated users can upload, browse, download, and delete their own files — all stored securely on the server.</p>
+        <h3>What it does</h3>
+        <p>You sign in, upload a file, and can download or delete it later. Someone else's file returns a 403.</p>
     </div>
     <div class="about-block">
         <div class="block-icon">🔐</div>
-        <h3>Authentication</h3>
-        <p>Built on Laravel Breeze, FileVault provides a complete authentication flow including registration, login, and logout functionality with session management.</p>
+        <h3>Sign-in</h3>
+        <p>Register, log in, and log out. Passwords have to be mixed case with a number, and they're rejected if they've shown up in a breach.</p>
     </div>
     <div class="about-block">
         <div class="block-icon">💾</div>
-        <h3>Storage</h3>
-        <p>Files are stored in Laravel's local filesystem under <code style="font-family:var(--mono);font-size:.85em;background:var(--surface2);padding:.1rem .35rem;border-radius:4px;">storage/app/uploads</code>. File metadata is kept in a SQLite database for fast querying.</p>
+        <h3>Where files go</h3>
+        <p>On disk under storage/app/uploads, named with a UUID. The original name is only kept in the database.</p>
     </div>
     <div class="about-block">
         <div class="block-icon">⚡</div>
-        <h3>Performance</h3>
-        <p>SQLite keeps the stack simple and dependency-free. The app is fully server-rendered with Blade templates — no JavaScript frameworks required.</p>
+        <h3>Stack</h3>
+        <p>Laravel, Blade, and SQLite. No extra frontend framework.</p>
     </div>
 </div>
 
-<div class="stack-section">
-    <h2>Tech Stack</h2>
-    <ul class="tech-list">
-        <li><span>🐘</span>PHP 8.2+</li>
-        <li><span>🔴</span>Laravel 12</li>
-        <li><span>🔑</span>Laravel Breeze</li>
-        <li><span>🗄️</span>SQLite</li>
-        <li><span>🔷</span>Blade Templates</li>
-        <li><span>🎨</span>Pure CSS</li>
-        <li><span>📦</span>Eloquent ORM</li>
-        <li><span>🛤️</span>Laravel Routing</li>
-    </ul>
-</div>
 @endsection

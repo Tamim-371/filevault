@@ -132,14 +132,13 @@
 
 @section('content')
 <section class="hero">
-    <div class="hero-eyebrow">🔒 Secure · Private · Fast</div>
-    <h1>Your files, <span>safely stored</span><br>and always accessible</h1>
-    <p>FileVault gives you a personal cloud space to upload, manage, and download your files — all in one clean interface.</p>
+    <h1>Upload a file.<br><span>Download it later.</span></h1>
+    <p>Sign in, keep your own files, and delete them when you don't need them.</p>
     <div class="hero-cta">
         @auth
             <a href="{{ route('dashboard') }}" class="btn-hero btn-hero-primary">Go to Dashboard →</a>
         @else
-            <a href="{{ route('register') }}" class="btn-hero btn-hero-primary">Get Started Free</a>
+            <a href="{{ route('register') }}" class="btn-hero btn-hero-primary">Create an account</a>
             <a href="{{ route('login') }}" class="btn-hero btn-hero-secondary">Sign In</a>
         @endauth
     </div>
@@ -148,31 +147,31 @@
 <div class="features">
     <div class="feature-card">
         <div class="feature-icon icon-blue">📤</div>
-        <h3>Easy Uploads</h3>
-        <p>Drag and drop or browse to upload any file type up to 50MB per file. Supported formats: images, documents, archives, and more.</p>
+        <h3>Upload</h3>
+        <p>Images, documents, and a few other types. 10MB max. The type is checked from the file, not the name.</p>
     </div>
     <div class="feature-card">
         <div class="feature-icon icon-purple">📁</div>
-        <h3>Organized Library</h3>
-        <p>All your files in one place, sorted by most recent. See file names, sizes, and types at a glance.</p>
+        <h3>Your list</h3>
+        <p>You only see files you uploaded. Names, sizes, and types are on the dashboard.</p>
     </div>
     <div class="feature-card">
         <div class="feature-icon icon-green">⬇️</div>
-        <h3>Instant Downloads</h3>
-        <p>Download any of your files at any time, from anywhere. Files are served directly with their original filenames.</p>
+        <h3>Download</h3>
+        <p>The file comes back with the name you gave it.</p>
     </div>
     <div class="feature-card">
         <div class="feature-icon icon-amber">🗑️</div>
-        <h3>Full Control</h3>
-        <p>Delete files you no longer need. Your storage is yours — manage it exactly how you want.</p>
+        <h3>Delete</h3>
+        <p>Remove a file when you're done with it.</p>
     </div>
 </div>
 
 <hr class="section-divider">
 
 <div class="cta-strip">
-    <h2>Ready to get started?</h2>
-    <p>Create a free account in seconds — no credit card required.</p>
+    <h2>That's it.</h2>
+    <p>An account is just an email and a password.</p>
     @guest
         <a href="{{ route('register') }}" class="btn btn-primary">Create Account</a>
     @else

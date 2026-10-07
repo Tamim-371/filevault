@@ -10,23 +10,6 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-/**
- * LoginRequest — secured against:
- *
- *  [Brute Force / DDoS on auth endpoint]
- *      - 5 attempts per email+IP, then 60-second lockout (exponential feel)
- *      - Throttle key combines email AND IP — can't bypass by cycling either alone
- *      - Suspicious lockout events logged for audit
- *
- *  [User Enumeration]
- *      - Generic error message regardless of whether email exists
- *
- *  [Timing Attacks]
- *      - Auth::attempt() uses constant-time hash comparison
- *
- *  [Input abuse]
- *      - Email and password length capped to prevent oversized payloads
- */
 class LoginRequest extends FormRequest
 {
     private const MAX_ATTEMPTS   = 5;

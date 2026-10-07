@@ -14,21 +14,6 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-/**
- * RegisteredUserController — secured against:
- *
- *  [DDoS / Mass account creation]
- *      - Rate limited: 5 registrations per IP per minute
- *
- *  [Cryptographic Failures]
- *      - Strong password policy enforced server-side
- *      - Password checked against HaveIBeenPwned breach database (uncompromised())
- *      - bcrypt via Hash::make() with cost factor from BCRYPT_ROUNDS env var (default 12)
- *
- *  [Security Misconfiguration]
- *      - Email lowercased before uniqueness check (prevents duplicate accounts via casing)
- *      - Name sanitised with strip_tags before saving
- */
 class RegisteredUserController extends Controller
 {
     public function create(): View
